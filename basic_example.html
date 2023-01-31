@@ -282,7 +282,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">YOUR_NAME</a>
+      <a class="navbar-brand" href="index.html">Alec Eng</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -304,7 +304,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com">
+  <a href="https://github.com/alecjeng">
     <span class="fas fa-github fa-lg"></span>
      
   </a>
@@ -331,11 +331,25 @@ $(document).ready(function () {
 </div>
 
 
-<p>This is a paragraph in an R Markdown document.</p>
+<p>This is a paragraph in an <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> document.</p>
+<p>#ggplot example</p>
 <p>Below is a code chunk:</p>
-<pre class="r"><code>library(tidyverse)
-
-fit &lt;- lm(dist ~ speed, data = cars)
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: replacing previous import &#39;ellipsis::check_dots_unnamed&#39; by
+## &#39;rlang::check_dots_unnamed&#39; when loading &#39;tibble&#39;</code></pre>
+<pre><code>## Warning: replacing previous import &#39;ellipsis::check_dots_used&#39; by
+## &#39;rlang::check_dots_used&#39; when loading &#39;tibble&#39;</code></pre>
+<pre><code>## Warning: replacing previous import &#39;ellipsis::check_dots_empty&#39; by
+## &#39;rlang::check_dots_empty&#39; when loading &#39;tibble&#39;</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.3.2     ✔ purrr   0.3.4
+## ✔ tibble  3.0.6     ✔ dplyr   1.0.4
+## ✔ tidyr   1.1.2     ✔ stringr 1.4.0
+## ✔ readr   1.4.0     ✔ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>fit &lt;- lm(dist ~ speed, data = cars)
 b &lt;- coef(fit)
 
 ggplot(cars) +
@@ -344,7 +358,7 @@ ggplot(cars) +
                method = lm)</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="basic_example_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>The slope of the regression is -17.5790949.</p>
+<p>The slope of the regression is 3.9324088.</p>
 
 <script type="text/javascript" src="links.js"></script>
 
