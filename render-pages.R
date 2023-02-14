@@ -10,3 +10,4 @@ f_render <- function(fname) {
 for (fname in fnames) {
   f_render(fname)
 }
+

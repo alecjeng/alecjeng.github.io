@@ -1,0 +1,145 @@
+---
+title: "Lecture 4 Practice"
+author: "Alec Eng"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include = F}
+library(tidyverse)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+library(hrbrthemes)
+theme_set(theme_minimal()) # setting the minimal theme for ggplot
+# setting default chunk options
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	message = FALSE,
+	warning = FALSE
+)
+ 
+```
+
+```{r, eval = T, echo = F, message = False, warning = False}
+ggplot(mpg) +
+  geom_boxplot(aes(x = class, y =hwy)) +
+  theme_wsj()
+```
+
+```{r setup, include = F}
+library(gapminder)
+gapminder
+skim(gapminder)
+
+```
+
+```{r}
+gapminder
+```
+
+```{r}
+p <- ggplot(data = gapminder)
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+
+p + geom_point()
+```
+
+```{r}
+p + geom_point() + geom_smooth() 
+p + geom_point() + geom_smooth(method = "lm", color = 'red') 
+p + geom_point() +
+    geom_smooth(method = "lm", color = 'blue')
+```
+
+```{r}
+p + geom_point() +
+    geom_smooth(method = "gam")
+```
+
+```{r}
+p2 <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap, y = lifeExp))
+
+p2 + geom_point(color = "purple") +
+     geom_smooth(method = "lm") 
+```
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p + geom_point(color = "purple") +
+    geom_smooth(method = "loess") 
+p + geom_point(alpha = 0.3) +
+    geom_smooth(color = "orange", se = F, size = 8, method = "lm")
+```
+
+```{r}
+p + geom_point(alpha = 0.3) +
+    geom_smooth(method = "gam") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(x = "GDP Per Capita", y = "Life Expectancy in Years",
+         title = "Economic Growth and Life Expectancy",
+         subtitle = "Data points are country-years",
+         caption = "Source: Gapminder.")
+```
+
+```{r}
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+p + geom_point(mapping = aes(color = continent)) +
+    geom_smooth(method = "loess")  +
+    scale_x_continuous(trans = scales::log_trans())  # natural log
+```
+
+```{r}
+ggsave(filename = "my_figure.png")
+```
+
+```{r}
+p_out <- p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+ggsave("my_figure.pdf", plot = p_out)
+```
+
+```{r}
+ggsave("lifexp_vs_gdp_gradient.pdf",
+       plot = p_out, height = 8, width = 10, units = "in")
+```
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = year,
+                          y = gdpPercap))
+p + geom_line() 
+p + geom_line(aes(group=country))
+```
+
+```{r}
+p + geom_line(aes(group = country)) + facet_wrap(~ continent)
+```
+```{r}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents")
+```
+
+```{r}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents") + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25)))
+```
+

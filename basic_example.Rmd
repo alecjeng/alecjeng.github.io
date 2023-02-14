@@ -32,4 +32,317 @@ The slope of the regression is `r b[2]`.
 x = 1
 ```
 
+# Title
+
+## Section X
+This is my introduction.
+
+## Quarterly Results {.tabset .tabset-fade .tabset-pills}
+### By Product
+(tab content)
+### By Region
+(tab content)
+
+
+
+# Section 1 {.nextsteps, .emphasized}
+Wake up
+## Section 1.1
+Drink water
+## Section 1.2
+Sleep again
+# Section 2
+Wake up
+
+---
+title: "Habits"
+author: YOUR_NAME
+date: January 31, 2023
+output:
+  html_document:
+    toc: false
+    toc_float: false
+    number_sections: true
+---
+---
+title: "Habits"
+author: YOUR_NAME
+date: January 31, 2023
+output:
+  html_document:
+    toc: false
+    toc_float: false
+    number_sections: true
+---
+
+```{r, include=F}
+library(fontawesome)
+library(tidyverse)
+
+```
+
+```{r}
+ggplot2::mpg
+```
+
+```{r setup, include = F}
+library(tidyverse)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+theme_set(theme_minimal()) # setting the minimal theme for ggplot
+# setting default chunk options
+knitr::opts_chunk$set(echo = T, eval = T,
+                      message=F, warning = F) 
+```
+
+```{r}
+library(gapminder)
+gapminder
+skim(gapminder)
+```
+
+```{r}
+p <- ggplot(data = gapminder)
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p +geom_point()
+```
+
+```{r}
+p + geom_point() + geom_smooth() 
+p + geom_point() + geom_smooth(method = "lm") 
+p + geom_point() +
+    geom_smooth(method = "lm")
+```
+
+```{r}
+p + geom_point() +
+    geom_smooth(method = "gam")
+```
+
+```{r}
+p2 <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap, y = lifeExp))
+```
+
+```{r}
+p2 + geom_point(color = "purple") +
+     geom_smooth(method = "lm")
+```
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p + geom_point(color = "purple") +
+    geom_smooth(method = "loess") 
+p + geom_point(alpha = 0.3) +
+    geom_smooth(color = "orange", se = F, size = 8, method = "lm")
+```
+
+```{r}
+p + geom_point(alpha = 0.3) +
+    geom_smooth(method = "gam") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(x = "GDP Per Capita", y = "Life Expectancy in Years",
+         title = "Economic Growth and Life Expectancy",
+         subtitle = "Data points are country-years",
+         caption = "Source: Gapminder.")
+```
+
+```{r}
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+p + geom_point(mapping = aes(color = continent)) +
+    geom_smooth(method = "loess")  +
+    scale_x_continuous(trans = scales::log_trans())  # natural log
+```
+
+```{r}
+ggsave(filename = "my_figure.png")
+```
+
+```{r}
+p_out <- p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+ggsave("my_figure.pdf", plot = p_out)
+```
+
+```{r}
+ggsave("lifexp_vs_gdp_gradient.pdf",
+       plot = p_out, height = 8, width = 10, units = "in")
+```
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+p + geom_line()
+```
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+p + geom_line( aes( group = country ) )
+```
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+p + geom_line( aes( color = country ) )
+```
+
+```{r}
+p + geom_line( aes( group = country ) ) + 
+  facet_wrap(~ continent ~.)
+```
+
+```{r}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    facet_grid(.~ continent) + #use grid as opposed to wrap
+    scale_y_log10(labels=scales::dollar) + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25))) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents")
+```
+```{r}
+library(ggThemeAssist)
+```
+
+```{r}
+ggplot(mpg)+
+  geom_boxplot(aes(x= class, y = hwy))
+```
+
+```{r}
+install.packages("socviz")
+library(socviz)
+?gss_sm
+glimpse(gss_sm)
+skimr::skim(gss_sm)
+gss_sm <- gss_sm
+```
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth(method = lm)
+```
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth() +
+    facet_grid(sex ~ race + degree)
+```
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar()
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop.., group=1))
+```
+```{r}
+table(gss_sm$religion)
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = religion, color = religion))
+p + geom_bar()
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = religion, fill = religion))
+p + geom_bar() + guides( fill = "none" )
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "fill")
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop..))
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = religion))
+```
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = bigregion)) +
+    facet_wrap(~ bigregion, ncol = 1)
+```
+```{r}
+?midwest
+glimpse(midwest)
+skim(midwest)
+view(midwest)
+```
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram()
+```
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram(bins = 10)
+```
+```{r}
+oh_wi <- c("OH", "WI")
+p <- ggplot(data = filter(midwest, 
+                          state %in% oh_wi),
+            mapping = aes(x = percollege, fill = state) )
+p + geom_histogram(alpha = 0.4, bins = 20)
+```
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_density()
+```
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density(alpha = 0.3)
+```
+```{r}
+p <- ggplot(data = filter(midwest, state %in% oh_wi),
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density( alpha = 0.3, mapping =  aes(y = after_stat(scaled) )  )
+```
+```{r}
+socviz::titanic
+```
+```{r}
+p <- ggplot(data = titanic,
+            mapping = aes(x = fate, y = percent, fill = sex))
+p + geom_bar(position = "dodge", stat = "identity") +
+  theme(legend.position = "top")
+```
+```{r}
+oecd_sum
+```
+
 

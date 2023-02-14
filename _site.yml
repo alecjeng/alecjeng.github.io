@@ -21,12 +21,12 @@ output:
     include:
       after_body: target_blank.html
     
-    theme: default  # theme for website
+    theme: sandstone  # theme for website
       # “default”, “bootstrap”, “cerulean”, “cosmo”, “darkly”, “flatly”, 
       # “journal”, “lumen”, “paper”, “readable”, “sandstone”, “simplex”, 
       # “spacelab”, “united”, “yeti”
       
-    highlight: default  # code style
+    highlight: monochrome  # code style
       # default, tango, pygments, kate, monochrome, espresso, 
       # zenburn, haddock, breezedark, and textmate
 
